@@ -1,4 +1,6 @@
-use cursive::views::TextView;
+use std::process::exit;
+use cursive::event::Key;
+use cursive::views::{Dialog, TextView};
 
 fn main() {
     let mut siv = cursive::default();
@@ -8,6 +10,12 @@ fn main() {
        /\_/\
       ( o o )
       =( I )="#;
-    siv.add_layer(TextView::new(cat_text));
+
+    siv.add_layer(
+        Dialog::text(cat_text).button("OK", |s| s.quit())
+    );
+
+    siv.add_global_callback(Key::Esc, |s| s.quit());
+
     siv.run();
 }
